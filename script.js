@@ -73,12 +73,23 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// Clean Form Submission Preventer
+// Contact form sends a pre-filled email using the default mail app
 const contactForm = document.getElementById('contact-form');
 if (contactForm) {
     contactForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        alert('Thank you for reaching out! Form payload submission placeholder is successful.');
+
+        const name = contactForm.elements.name.value.trim();
+        const email = contactForm.elements.email.value.trim();
+        const subject = contactForm.elements.subject.value.trim();
+        const message = contactForm.elements.message.value.trim();
+        const recipient = 'thotasaivenkat27@gmail.com';
+
+        const mailtoLink = `mailto:${recipient}?subject=${encodeURIComponent(subject || 'Portfolio Contact')}&body=${encodeURIComponent(
+            `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`
+        )}`;
+
+        window.location.href = mailtoLink;
         contactForm.reset();
     });
 }
